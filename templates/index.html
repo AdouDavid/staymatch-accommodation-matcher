@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StayMatch | Find the Best Student Housing</title>
+    <meta name="description" content="Responsive accommodation matcher for students to search, compare, and discover the best housing options." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <div class="bg-orb orb-1"></div>
+      <div class="bg-orb orb-2"></div>
+      <div class="bg-grid"></div>
+
+      <header class="topbar container">
+        <div class="brand-wrap">
+          <div class="brand-mark">S</div>
+          <div>
+            <p class="brand-name">StayMatch</p>
+            <span class="brand-tag">Student Housing</span>
+          </div>
+        </div>
+
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="#discover">Discover</a>
+          <a href="#compare">Compare</a>
+          <a href="#recommend">Recommended</a>
+        </nav>
+
+        <div class="topbar-actions">
+          <button class="icon-btn theme-toggle" type="button" aria-label="Toggle light and dark mode">☀️</button>
+          <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+          <button class="nav-cta" type="button">List a property</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero container">
+          <div class="hero-copy reveal-up">
+            <span class="eyebrow">Smart student living</span>
+            <h1>Find a home that fits your budget, lifestyle, and campus life.</h1>
+            <p>
+              Search modern student housing, compare amenities, and uncover the best matches based on your priorities.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#discover" class="primary-btn">Discover homes</a>
+              <button type="button" class="secondary-btn" id="show-recommendation">Get recommendations</button>
+            </div>
+
+            <div class="stat-row">
+              <div class="stat-card">
+                <strong>1.2k+</strong>
+                <span>Verified listings</span>
+              </div>
+              <div class="stat-card">
+                <strong>96%</strong>
+                <span>Student satisfaction</span>
+              </div>
+              <div class="stat-card">
+                <strong>48h</strong>
+                <span>Average match time</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-panel reveal-up delay-1">
+            <div class="panel-glow"></div>
+            <div class="mini-card top-card">
+              <span class="chip success">Popular</span>
+              <h3>Eco Residence</h3>
+              <div class="mini-meta">
+                <span>From ₦450,000</span>
+                <span>2.4 km away</span>
+              </div>
+            </div>
+            <div class="mini-card spotlight-card">
+              <div class="price-ring">
+                <div>
+                  <small>Match score</small>
+                  <strong>94%</strong>
+                </div>
+              </div>
+            </div>
+            <div class="mini-card feature-stack">
+              <div><span>Wi‑Fi</span><strong>Included</strong></div>
+              <div><span>Power</span><strong>24/7</strong></div>
+              <div><span>Security</span><strong>24/7</strong></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="feature-strip container reveal-up">
+          <div class="feature-pill">
+            <span class="feature-icon">⚡</span>
+            <span>Fast filters</span>
+          </div>
+          <div class="feature-pill">
+            <span class="feature-icon">🏠</span>
+            <span>Smart comparison</span>
+          </div>
+          <div class="feature-pill">
+            <span class="feature-icon">🎯</span>
+            <span>Personalized matches</span>
+          </div>
+        </section>
+
+        <section class="discover container" id="discover">
+          <div class="section-heading reveal-up">
+            <div>
+              <span class="eyebrow">Discover</span>
+              <h2>Browse student accommodations</h2>
+            </div>
+            <p>Filter by budget, distance, and essentials to narrow to the best fit.</p>
+          </div>
+
+          <form id="filterForm" class="filter-panel reveal-up">
+            <div class="field-group">
+              <label for="min_price">Min price</label>
+              <input id="min_price" name="min_price" type="number" placeholder="0" min="0" />
+            </div>
+            <div class="field-group">
+              <label for="max_price">Max price</label>
+              <input id="max_price" name="max_price" type="number" placeholder="500000" min="0" />
+            </div>
+            <div class="field-group">
+              <label for="max_distance">Max distance (km)</label>
+              <input id="max_distance" name="max_distance" type="number" placeholder="10" min="0" step="0.1" />
+            </div>
+            <button type="submit" class="primary-btn">Apply filters</button>
+          </form>
+
+          <div class="listing-grid" id="listingGrid" aria-live="polite"></div>
+        </section>
+
+        <section class="compare-section container" id="compare">
+          <div class="section-heading reveal-up">
+            <div>
+              <span class="eyebrow">Compare</span>
+              <h2>Stack your top picks side by side</h2>
+            </div>
+            <p>Choose up to three listings and see which one gives you the strongest value.</p>
+          </div>
+
+          <div class="compare-panel reveal-up">
+            <div class="compare-tray" id="compareTray">
+              <p class="empty-state">Select listings from the grid to compare them.</p>
+            </div>
+            <div class="compare-results" id="compareResults"></div>
+          </div>
+        </section>
+
+        <section class="recommendation container" id="recommend">
+          <div class="section-heading reveal-up">
+            <div>
+              <span class="eyebrow">Recommended</span>
+              <h2>Your best-fit homes</h2>
+            </div>
+            <p>Tell us what matters most and we’ll rank homes according to your preference weights.</p>
+          </div>
+
+          <div class="recommendation-layout reveal-up">
+            <form id="recommendForm" class="recommend-form">
+              <div class="field-group">
+                <label for="budget">Budget</label>
+                <input id="budget" name="budget" type="number" placeholder="450000" min="0" />
+              </div>
+
+              <div class="field-group">
+                <label for="max_distance_recommend">Max distance (km)</label>
+                <input id="max_distance_recommend" name="max_distance" type="number" placeholder="5" min="0" step="0.1" />
+              </div>
+
+              <div class="field-group">
+                <label for="required">Must-have facilities</label>
+                <input id="required" name="required" type="text" placeholder="wifi, water, parking" />
+              </div>
+
+              <div class="field-group">
+                <label for="preferred">Nice-to-have facilities</label>
+                <input id="preferred" name="preferred" type="text" placeholder="generator, study room, gym" />
+              </div>
+
+              <div class="weight-grid">
+                <div class="field-group small">
+                  <label for="w_price">Price weight</label>
+                  <input id="w_price" name="w_price" type="number" value="40" min="0" step="1" />
+                </div>
+                <div class="field-group small">
+                  <label for="w_distance">Distance weight</label>
+                  <input id="w_distance" name="w_distance" type="number" value="35" min="0" step="1" />
+                </div>
+                <div class="field-group small">
+                  <label for="w_facilities">Facilities weight</label>
+                  <input id="w_facilities" name="w_facilities" type="number" value="25" min="0" step="1" />
+                </div>
+              </div>
+
+              <button type="submit" class="primary-btn wide">Generate ranking</button>
+            </form>
+
+            <div class="recommendation-results" id="recommendationResults"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <template id="listingCardTemplate">
+      <article class="listing-card">
+        <div class="card-top">
+          <div>
+            <span class="listing-tag">Featured</span>
+          </div>
+          <button class="watch-btn" type="button" aria-label="Compare listing">Compare</button>
+        </div>
+
+        <div class="card-body">
+          <h3 class="listing-title"></h3>
+          <p class="listing-address"></p>
+          <div class="listing-meta">
+            <span class="price"></span>
+            <span class="distance"></span>
+          </div>
+          <ul class="facility-list"></ul>
+          <div class="listing-footer">
+            <a href="#" class="link-btn">Contact host</a>
+            <button class="compare-check" type="button">Select</button>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>
